@@ -1,0 +1,227 @@
+definitions:
+  dto.AdminInfoOutput:
+    properties:
+      avatar:
+        type: string
+      id:
+        type: integer
+      introduction:
+        type: string
+      login_time:
+        type: string
+      name:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+    type: object
+  dto.AdminLoginInput:
+    properties:
+      password:
+        description: 密码
+        example: "1223456"
+        type: string
+      user_name:
+        description: 管理员用户名
+        example: admin
+        type: string
+    required:
+    - password
+    - user_name
+    type: object
+  dto.AdminLoginOutput:
+    properties:
+      token:
+        description: Token
+        example: token
+        type: string
+    type: object
+  dto.ChangeAdmPwd:
+    properties:
+      password:
+        description: 密码
+        example: "123456"
+        type: string
+    required:
+    - password
+    type: object
+  dto.ServiceListItemOutput:
+    properties:
+      id:
+        type: integer
+      load_type:
+        type: integer
+      qpd:
+        type: integer
+      qps:
+        type: integer
+      service_addr:
+        type: string
+      service_desc:
+        type: string
+      service_name:
+        type: string
+      total_node:
+        type: integer
+    type: object
+  dto.ServiceListOutput:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.ServiceListItemOutput'
+        type: array
+      total:
+        type: integer
+    type: object
+  middleware.Response:
+    properties:
+      data:
+        type: object
+      errmsg:
+        type: string
+      errno:
+        type: integer
+      stack:
+        type: object
+      trace_id:
+        type: object
+    type: object
+info:
+  contact: {}
+paths:
+  /admin/changePwd:
+    post:
+      consumes:
+      - application/json
+      description: 管理员密码修改
+      operationId: /admin/changePwd
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ChangeAdmPwd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/middleware.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: 管理员密码修改
+      tags:
+      - 管理员接口
+  /admin/info:
+    get:
+      consumes:
+      - application/json
+      description: 管理员信息
+      operationId: /admin/info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/middleware.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.AdminInfoOutput'
+              type: object
+      summary: 管理员信息
+      tags:
+      - 管理员接口
+  /admin_login/login:
+    post:
+      consumes:
+      - application/json
+      description: 管理员登陆
+      operationId: /admin_login/login
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AdminLoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/middleware.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.AdminLoginOutput'
+              type: object
+      summary: 管理员登陆
+      tags:
+      - 管理员接口
+  /admin_login/logout:
+    get:
+      consumes:
+      - application/json
+      description: 管理员退出
+      operationId: /admin_login/logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/middleware.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: 管理员退出
+      tags:
+      - 管理员接口
+  /service/service_list:
+    get:
+      consumes:
+      - application/json
+      description: 服务列表
+      operationId: /service/service_list
+      parameters:
+      - description: 关键词
+        in: query
+        name: info
+        type: string
+      - description: 每页个数
+        in: query
+        name: page_size
+        required: true
+        type: integer
+      - description: 当前页数
+        in: query
+        name: page_no
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/middleware.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ServiceListOutput'
+              type: object
+      summary: 服务列表
+      tags:
+      - 服务管理
+swagger: "2.0"

@@ -1,0 +1,4 @@
+[INFO][2021-04-05T12:18:38.623][log.go:58] _com_request_in||cspanid=||spanid=a0c2a403380704bb||method=POST||args=map[]||from=127.0.0.1||uri=/admin_login/login?user_name=%E7%!A(MISSING)C%E7%!A(MISSING)C%22&password=%!(NOVERB)
+[INFO][2021-04-05T12:18:38.623][log.go:58] _com_request_out||traceid=c0a82b9d606a8f9e95f01034104dc7b0||cspanid=||uri=/admin_login/login?user_name=%E7%!A(MISSING)C%E7%!A(MISSING)C%22&password=%!(NOVERB)
+[INFO][2021-04-05T12:19:36.896][log.go:58] _com_request_in||body=||from=127.0.0.1||uri=/admin_login/login?user_name=%E7%!A(MISSING)C%E7%!A(MISSING)C%22&password=%!(NOVERB)
+[INFO][2021-04-05T12:19:36.896][log.go:58] _com_request_out||traceid=c0a82b9d606a8fd8fc48105a104dc7b0||spanid=a0c2a445380704bb||uri=/admin_login/login?user_name=%E7%!A(MISSING)C%E7%!A(MISSING)C%22&password=%!(NOVERB)
